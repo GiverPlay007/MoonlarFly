@@ -1,0 +1,7 @@
+name: MoonlarFly
+version: '${version}'
+main: net.moonlar.fly.MoonlarFly
+api-version: 1.16
+authors: [ GiverPlay ]
+description: Per world fly and per region fly
+website: https://moonlar.net
