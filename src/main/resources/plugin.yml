@@ -5,3 +5,7 @@ api-version: 1.16
 authors: [ GiverPlay ]
 description: Per world fly and per region fly
 website: https://moonlar.net
+commands:
+  fly:
+    description: 'Alterar o modo de fly'
+    aliases: ['voar', 'voo', 'flight', 'ibelieveicanfly']
