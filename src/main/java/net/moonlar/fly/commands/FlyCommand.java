@@ -28,6 +28,17 @@ public class FlyCommand implements CommandExecutor {
     }
 
     if(args.length == 1) {
+      if(args[0].equalsIgnoreCase("reload")) {
+        if(!sender.hasPermission("moonlar.fly.admin")) {
+          sender.sendMessage("&cVocê não está autorizado.");
+          return true;
+        }
+
+        plugin.reload();
+        sender.sendMessage("&cConfigurações recarregadas!");
+        return true;
+      }
+
       if(!plugin.hasPermission(sender, "moonlar.fly.other")) {
         sender.sendMessage("&cvocê não pode alterar o fly de outro jogador!");
         return true;

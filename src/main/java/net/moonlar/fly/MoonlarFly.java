@@ -16,9 +16,7 @@ public final class MoonlarFly extends JavaPlugin {
     getCommand("fly").setExecutor(new FlyCommand(this));
 
     saveConfig();
-    reloadConfig();
-
-    enabledWorlds = getConfig().getStringList("EnabledWorlds");
+    reload();
   }
 
   @Override
@@ -53,5 +51,10 @@ public final class MoonlarFly extends JavaPlugin {
 
   public boolean hasPermission(CommandSender sender, String permission) {
     return sender.hasPermission("moonlar.fly.admin") || sender.hasPermission(permission);
+  }
+
+  public void reload() {
+    reloadConfig();
+    enabledWorlds = getConfig().getStringList("EnabledWorlds");
   }
 }
