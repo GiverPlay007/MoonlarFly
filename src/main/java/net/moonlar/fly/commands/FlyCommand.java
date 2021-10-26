@@ -40,7 +40,10 @@ public class FlyCommand implements CommandExecutor {
         return true;
       }
 
-      plugin.toggleFly(player);
+      if(!plugin.toggleFly(player, sender)) {
+        sender.sendMessage("&cO jogador não pode voar onde ele se encontra!");
+        return true;
+      }
 
       if(player.getAllowFlight()) {
         sender.sendMessage("&aModo fly ativado para " + player.getName() + "!");

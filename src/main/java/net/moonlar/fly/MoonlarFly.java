@@ -5,11 +5,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 public final class MoonlarFly extends JavaPlugin {
+
+  private List<String> enabledWorlds;
 
   @Override
   public void onEnable() {
     getCommand("fly").setExecutor(new FlyCommand(this));
+
+    saveConfig();
+    reloadConfig();
+
+    enabledWorlds = getConfig().getStringList("EnabledWorlds");
   }
 
   @Override
@@ -17,7 +26,19 @@ public final class MoonlarFly extends JavaPlugin {
 
   }
 
-  public void toggleFly(Player player) {
+  public boolean checkLocation(Player player, CommandSender cause) {
+    return enabledWorlds.contains(player.getWorld().getName())
+      || hasPermission(player, "moonlar.fly.anywhere")
+      || cause.hasPermission("moonlar.fly.admin");
+  }
+
+  public boolean toggleFly(Player player) {
+    return toggleFly(player, player);
+  }
+
+  public boolean toggleFly(Player player, CommandSender cause) {
+    if(!checkLocation(player, cause)) return false;
+
     if(player.getAllowFlight()) {
       player.setAllowFlight(false);
       player.sendMessage("&cModo fly desativado!");
@@ -26,6 +47,8 @@ public final class MoonlarFly extends JavaPlugin {
       player.setAllowFlight(true);
       player.sendMessage("&aModo fly ativado!");
     }
+
+    return true;
   }
 
   public boolean hasPermission(CommandSender sender, String permission) {
