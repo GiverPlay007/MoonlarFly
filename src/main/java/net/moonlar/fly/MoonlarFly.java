@@ -14,8 +14,6 @@ public final class MoonlarFly extends JavaPlugin {
   @Override
   public void onEnable() {
     getCommand("fly").setExecutor(new FlyCommand(this));
-
-    saveConfig();
     reload();
   }
 
@@ -54,6 +52,7 @@ public final class MoonlarFly extends JavaPlugin {
   }
 
   public void reload() {
+    saveDefaultConfig();
     reloadConfig();
     enabledWorlds = getConfig().getStringList("EnabledWorlds");
   }
