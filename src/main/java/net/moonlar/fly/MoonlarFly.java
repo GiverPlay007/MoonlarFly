@@ -1,6 +1,7 @@
 package net.moonlar.fly;
 
 import net.moonlar.fly.commands.FlyCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,15 +34,21 @@ public final class MoonlarFly extends JavaPlugin {
   }
 
   public boolean toggleFly(Player player, CommandSender cause) {
-    if(!checkLocation(player, cause)) return false;
+    if(!checkLocation(player, cause)) {
+      if(player == cause) {
+        player.sendMessage(ChatColor.RED + "Não pode voar aqui!");
+      }
+
+      return false;
+    }
 
     if(player.getAllowFlight()) {
       player.setAllowFlight(false);
-      player.sendMessage("&cModo fly desativado!");
+      player.sendMessage(ChatColor.RED + "Modo fly desativado!");
     }
     else {
       player.setAllowFlight(true);
-      player.sendMessage("&aModo fly ativado!");
+      player.sendMessage(ChatColor.GREEN + "Modo fly ativado!");
     }
 
     return true;

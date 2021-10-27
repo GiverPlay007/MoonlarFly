@@ -2,6 +2,7 @@ package net.moonlar.fly.commands;
 
 import net.moonlar.fly.MoonlarFly;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,7 +19,7 @@ public class FlyCommand implements CommandExecutor {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if(!plugin.hasPermission(sender, "moonlar.fly")) {
-      sender.sendMessage("&cVocê não tem permissão para voar.");
+      sender.sendMessage(ChatColor.RED + "Você não tem permissão para voar.");
       return true;
     }
 
@@ -30,42 +31,42 @@ public class FlyCommand implements CommandExecutor {
     if(args.length == 1) {
       if(args[0].equalsIgnoreCase("reload")) {
         if(!sender.hasPermission("moonlar.fly.admin")) {
-          sender.sendMessage("&cVocê não está autorizado.");
+          sender.sendMessage(ChatColor.RED + "Você não está autorizado.");
           return true;
         }
 
         plugin.reload();
-        sender.sendMessage("&cConfigurações recarregadas!");
+        sender.sendMessage(ChatColor.RED + "Configurações recarregadas!");
         return true;
       }
 
       if(!plugin.hasPermission(sender, "moonlar.fly.other")) {
-        sender.sendMessage("&cvocê não pode alterar o fly de outro jogador!");
+        sender.sendMessage(ChatColor.RED + "você não pode alterar o fly de outro jogador!");
         return true;
       }
 
       Player player = Bukkit.getPlayer(args[0]);
 
       if(player == null) {
-        sender.sendMessage("&cJogador não encontrado!");
+        sender.sendMessage(ChatColor.RED + "Jogador não encontrado!");
         return true;
       }
 
       if(!plugin.toggleFly(player, sender)) {
-        sender.sendMessage("&cO jogador não pode voar onde ele se encontra!");
+        sender.sendMessage(ChatColor.RED + "O jogador não pode voar onde ele se encontra!");
         return true;
       }
 
       if(player.getAllowFlight()) {
-        sender.sendMessage("&aModo fly ativado para " + player.getName() + "!");
+        sender.sendMessage(ChatColor.GREEN + "Modo fly ativado para " + player.getName() + "!");
         return true;
       }
 
-      sender.sendMessage("&cModo fly desativado para " + player.getName() + "!");
+      sender.sendMessage(ChatColor.RED + "Modo fly desativado para " + player.getName() + "!");
       return true;
     }
 
-    sender.sendMessage("&cUtilize: /fly <nickname>");
+    sender.sendMessage(ChatColor.RED + "Utilize: /fly <nickname>");
     return true;
   }
 }
